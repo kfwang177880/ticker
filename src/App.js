@@ -6,32 +6,47 @@ class Ticker extends Component {
     this.state={
       count: 0, 
       tickerPause: false,
+      setInt: null
+    }
+  }
+
+  clear = () => {
+    this.setState({
+      count: 0
+    });
+  };
+
+  toggle = () => {
+    if (this.state.tickerPause){
+      let status = setInterval(() => {
+        this.setState ({
+          count: this.state.count + 1,
+          setInt: status,
+          tickerPause: false
+        })
+      }, 1000);
+    } else {
+      clearInterval(this.state.setInt)
+      this.setState({
+        tickerPause: true
+      })
     }
   }
   
   componentDidMount() {
-    setInterval(() => {
-      this.setState({
-        count: this.state.count + 1
-      })
-    }, 1000)
+    let status = 
+      setInterval(() => {
+        this.setState({
+          count: this.state.count + 1,
+          setInt: status
+        })
+      }, 1000)
+    
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     if (nextState.count % 3 === 0) return true;
     else return false;
-  }
-
-  clear = () => {
-    this.setState({
-      count: this.state.count = 0.
-    });
-  };
-
-  toggle = () => {
-    this.setState({
-      tickerPause: !this.state.tickerPause,
-    })
   }
 
   render () {
